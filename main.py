@@ -13,6 +13,12 @@ class Post(BaseModel):
     rating: Optional[int] = None
 
 
+my_post = [
+    {"title": "title of post 1", "content": "content of post 1", "id": 1},
+    {"title": "Proteins", "content": "all the proteins", "id": 2}
+]
+
+
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
@@ -20,10 +26,10 @@ async def root():
 
 @app.get("/posts")
 def get_posts():
-    return {"data": "This is your posts"}
+    return {"data": my_post}
 
 
-@app.post("/createposts")
+@app.post("/posts")
 def create_posts(post: Post):
     print(post)
     print(post.dict())
