@@ -60,7 +60,9 @@ async def root():
 
 @app.get("/posts")
 def get_posts():
-    return {"data": my_post}
+    cursor.execute("""SELECT * FROM posts""")
+    posts = cursor.fetchall()
+    return {"data": posts}
 
 
 @app.post("/posts", status_code=status.HTTP_201_CREATED)
