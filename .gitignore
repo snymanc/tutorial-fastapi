@@ -3,6 +3,8 @@ notes.md
 venv/
 .vscode/
 .env
+*.png
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

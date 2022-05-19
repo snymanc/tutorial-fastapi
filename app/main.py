@@ -1,26 +1,18 @@
-from multiprocessing import synchronize
 import time
 
 from typing import Optional
 from fastapi import Depends, FastAPI, HTTPException, Response, status
 import psycopg2
 from psycopg2.extras import RealDictCursor
-from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
-from . import models
+from . import models, schemas
 from .database import engine, get_db
 
 
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
-
-
-class Post(BaseModel):
-    title: str
-    content: str
-    published: bool = True
 
 
 while True:
@@ -64,12 +56,6 @@ async def root():
     return {"message": "Hello World"}
 
 
-@app.get("/slqalchemy")
-def test_posts(db: Session = Depends(get_db)):
-    posts = db.query(models.Post).all()
-    return {"data": posts}
-
-
 @app.get("/posts")
 def get_posts(db: Session = Depends(get_db)):
     posts = db.query(models.Post).all()
@@ -77,7 +63,7 @@ def get_posts(db: Session = Depends(get_db)):
 
 
 @app.post("/posts", status_code=status.HTTP_201_CREATED)
-def create_posts(post: Post, db: Session = Depends(get_db)):
+def create_posts(post: schemas.PostCreate, db: Session = Depends(get_db)):
     new_post = models.Post(**post.dict())
     db.add(new_post)
     db.commit()
@@ -112,10 +98,10 @@ def delete_post(id: int, db: Session = Depends(get_db)):
 
 
 @app.put("/posts/{id}")
-def update_post(id: int, updated_post: Post, db: Session = Depends(get_db)):
+def update_post(id: int, updated_post: schemas.PostCreate, db: Session = Depends(get_db)):
     # store query in var
     post_query = db.query(models.Post).filter(models.Post.id == id)
-    
+
     post = post_query.first()
 
     if post is None:
