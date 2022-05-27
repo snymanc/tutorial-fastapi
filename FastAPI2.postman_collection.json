@@ -11,20 +11,22 @@
 				{
 					"name": "Get Posts",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/posts",
-							"protocol": "http",
+							"raw": "{{URL}}posts",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8000",
-							"path": [
-								"posts"
+								"{{URL}}posts"
 							]
 						}
 					},
@@ -33,8 +35,25 @@
 				{
 					"name": "Create Post",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2NTM1NDcwMzR9.7zsfZIYmzY0jwWzRTiNBmbIjOHi5N1uNI6ZfkT6BshA",
+								"type": "default",
+								"disabled": true
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"title\": \"routers\",\n    \"content\": \"using routers\",\n    \"published\": \"true\"\n}",
@@ -45,17 +64,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/posts",
-							"protocol": "http",
+							"raw": "{{URL}}posts",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8000",
-							"path": [
-								"posts"
+								"{{URL}}posts"
 							]
 						}
 					},
@@ -64,20 +75,24 @@
 				{
 					"name": "Get One Post",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/posts/4",
-							"protocol": "http",
+							"raw": "{{URL}}posts/4",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{URL}}posts"
 							],
-							"port": "8000",
 							"path": [
-								"posts",
 								"4"
 							]
 						}
@@ -87,20 +102,24 @@
 				{
 					"name": "Delete Post",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/posts/8",
-							"protocol": "http",
+							"raw": "{{URL}}posts/8",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{URL}}posts"
 							],
-							"port": "8000",
 							"path": [
-								"posts",
 								"8"
 							]
 						}
@@ -110,20 +129,24 @@
 				{
 					"name": "Get One Post 404",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/posts/0",
-							"protocol": "http",
+							"raw": "{{URL}}posts/0",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{URL}}posts"
 							],
-							"port": "8000",
 							"path": [
-								"posts",
 								"0"
 							]
 						}
@@ -133,6 +156,16 @@
 				{
 					"name": "Update Post",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -145,17 +178,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/posts/10",
-							"protocol": "http",
+							"raw": "{{URL}}posts/10",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{URL}}posts"
 							],
-							"port": "8000",
 							"path": [
-								"posts",
 								"10"
 							]
 						}
@@ -182,17 +209,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/users",
-							"protocol": "http",
+							"raw": "{{URL}}users",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8000",
-							"path": [
-								"users"
+								"{{URL}}users"
 							]
 						}
 					},
@@ -216,17 +235,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/users/1",
-							"protocol": "http",
+							"raw": "{{URL}}users/1",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{URL}}users"
 							],
-							"port": "8000",
 							"path": [
-								"users",
 								"1"
 							]
 						}
@@ -256,17 +269,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/login",
-							"protocol": "http",
+							"raw": "{{URL}}login",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8000",
-							"path": [
-								"login"
+								"{{URL}}login"
 							]
 						}
 					},
@@ -274,6 +279,17 @@
 				},
 				{
 					"name": "Login - form-data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"JWT\", pm.response.json().access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -284,7 +300,7 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "user-name",
+									"key": "username",
 									"value": "john9@smith.com",
 									"type": "default"
 								},
@@ -301,17 +317,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/login",
-							"protocol": "http",
+							"raw": "{{URL}}login",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8000",
-							"path": [
-								"login"
+								"{{URL}}login"
 							]
 						}
 					},
