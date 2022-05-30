@@ -28,7 +28,7 @@ def create_post(post: schemas.PostCreate, db: Session = Depends(get_db),
 
 
 @router.get("/{id}", response_model=schemas.Post)
-def get_one_post(id: int, db: Session = Depends(get_db)):
+def get_one_post(id: int, db: Session = Depends(get_db), current_user=Depends(oauth2.get_current_user)):
     post = db.query(models.Post).filter(models.Post.id == id).first()
     if not post:
         raise HTTPException(
