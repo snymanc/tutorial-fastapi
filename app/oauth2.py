@@ -26,7 +26,7 @@ def create_access_token(data: dict):
 
     Examples:
 
-        >>> oauth2.create_access_token(data={"user_id": user.id})
+        >>> oauth2.create_access_token(data={"owner_id": user.id})
         "eyJhbGciOiJII6IkpXVCJ9.eyJhIjoiYiJ9.jiMyrsmD8AoHWeQgmxZ5yq8z0lXS67_QGs52AzC8Ru8"
 
     """
@@ -56,7 +56,7 @@ def verify_access_token(token: str, credentials_exception):
     """
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        id: str = payload.get("user_id")
+        id: str = payload.get("owner_id")
 
         if id is None:
             raise credentials_exception
