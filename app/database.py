@@ -5,8 +5,15 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
+from .config import settings
 
-SQLALCHEMY_DATABASE_URL = "postgresql://postgres:GarthNeele@localhost/fastapi2"
+
+SQLALCHEMY_DATABASE_URL = f"postgresql://" + \
+                          f"{settings.database_username}:" + \
+                          f"{settings.database_password}@" + \
+                          f"{settings.database_hostname}:" + \
+                          f"{settings.database_port}/" + \
+                          f"{settings.database_name}"
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
@@ -26,10 +33,10 @@ def get_db():
 while True:
     try:
         conn = psycopg2.connect(
-            host="localhost",
-            database="fastapi2",
-            user="postgres",
-            password="GarthNeele",
+            host=f"{settings.database_hostname}",
+            database=f"{settings.database_name}",
+            user=f"{settings.database_username}",
+            password=f"{settings.database_password}",
             cursor_factory=RealDictCursor
         )
         cursor = conn.cursor()
