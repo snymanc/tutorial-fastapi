@@ -4,11 +4,6 @@ from . import models
 from .database import engine
 from .routers import auth, post, user, vote
 
-# Creates tables specified in models.py
-# if tables don't exists
-# will not update existing table
-# if table is updated in models.py
-models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
