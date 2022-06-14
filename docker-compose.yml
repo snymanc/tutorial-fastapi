@@ -17,6 +17,8 @@ services:
       - OAUTH2_SECRET_KEY="5235d21776b207cd601b8a2f99fb1077aaa92cc1a5f94d7dda7ac1bbaf8ed62f"
       - OAUTH2_ALGORITHM="HS256"
       - OAUTH2_ACCESS_TOKEN_EXPIRE_MINUTES=30
+    depends_on:
+      - postgres
 
   postgres:
     image: postgres
