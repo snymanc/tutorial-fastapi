@@ -1,0 +1,21 @@
+# project
+notes.md
+FastAPI2.postman_collection.json
+.env
+*.png
+*.service
+venv/
+.vscode/
+
+# Docker
+.dockerignore
+Dockerfile
+docker-compose.yml
+
+# Heroku
+Procfile
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
