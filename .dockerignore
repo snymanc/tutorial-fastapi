@@ -10,7 +10,7 @@ venv/
 # Docker
 .dockerignore
 Dockerfile
-docker-compose.yml
+*.yml
 
 # Heroku
 Procfile
