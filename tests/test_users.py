@@ -1,6 +1,7 @@
 from fastapi.testclient import TestClient
+import pytest
 
-from app import main
+from app import main, schemas
 
 client = TestClient(main.app)
 
@@ -11,11 +12,16 @@ def test_root():
     assert response.status_code == 200
 
 
-def test_create_user():
+@pytest.mark.parametrize("email, password", [
+    ("hello@email.com", "password123")
+])
+def test_create_user(email, password):
     response = client.post(
         "/users/",
-        json={"email": "hello@email.com", "password": "password123"}
+        json={"email": email, "password": password}
     )
 
-    assert response.json().get("email") == "hello@email.com"
+    # Validate response against schema
+    new_user = schemas.UserOut(**response.json())
+    assert new_user.email == email
     assert response.status_code == 201
