@@ -1,6 +1,8 @@
+from jose import jwt
 import pytest
 
 from app import schemas
+from app.config import settings
 from .database import client, session
 
 
@@ -42,4 +44,13 @@ def test_create_user(client, email, password):
 def test_login(client, test_user):
     response = client.get("/login",
                           data={"username": test_user["email"], "password": test_user["password"]})
+
+    login_response = schemas.Token(**response.json())
+    payload = jwt.decode(login_response.access_token,
+                         settings.oauth2_secret_key,
+                         algorithms=[settings.oauth2_algorithm])
+    id = payload.get("owner_id")
+
     assert response.status_code == 200
+    assert id == test_user["id"]
+    assert login_response.token_type == "bearer"
