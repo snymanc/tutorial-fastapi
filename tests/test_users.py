@@ -3,21 +3,6 @@ import pytest
 
 from app import schemas
 from app.config import settings
-from .database import client, session
-
-
-@pytest.fixture
-def test_user(client):
-    user_data = {"email": "hello@email.com",
-                 "password": "password123"}
-    response = client.post("/users/", json=user_data)
-
-    assert response.status_code == 201
-
-    new_user = response.json()
-    new_user['password'] = user_data["password"]
-
-    return new_user
 
 
 def test_root(client):
