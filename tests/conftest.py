@@ -3,6 +3,7 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
+from app import models
 from app.config import settings
 from app.database import get_db
 from app.database import Base
@@ -74,3 +75,24 @@ def authorized_client(client, token):
     }
 
     return client
+
+
+@pytest.fixture
+def test_posts(session, test_user):
+    # create post manually
+    session.add_all([
+        models.Post(title="first title",
+                    content="first content",
+                    owner_id=test_user['id']),
+        models.Post(title="2nd title",
+                    content="2nd content",
+                    owner_id=test_user['id']),
+        models.Post(title="3rd title",
+                    content="3rd content",
+                    owner_id=test_user['id'])
+    ])
+
+    session.commit()
+    posts = session.query(models.Post).all()
+
+    return posts
