@@ -7,6 +7,7 @@ from app.config import settings
 from app.database import get_db
 from app.database import Base
 from app.main import app
+from app.oauth2 import create_access_token
 
 
 SQLALCHEMY_DATABASE_URL = f"postgresql://" + \
@@ -58,3 +59,18 @@ def test_user(client):
     new_user['password'] = user_data["password"]
 
     return new_user
+
+
+@pytest.fixture
+def token(test_user):
+    return create_access_token(data={"owner_id": test_user["id"]})
+
+
+@pytest.fixture
+def authorized_client(client, token):
+    client.headers = {
+        **client.headers,
+        "Authorization": f"Bearer {token}"
+    }
+
+    return client
