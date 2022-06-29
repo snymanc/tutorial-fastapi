@@ -79,20 +79,36 @@ def authorized_client(client, token):
 
 @pytest.fixture
 def test_posts(session, test_user):
-    # create post manually
-    session.add_all([
-        models.Post(title="first title",
-                    content="first content",
-                    owner_id=test_user['id']),
-        models.Post(title="2nd title",
-                    content="2nd content",
-                    owner_id=test_user['id']),
-        models.Post(title="3rd title",
-                    content="3rd content",
-                    owner_id=test_user['id'])
-    ])
+    # create post with map()
+    posts_data = [{
+        "title": "first title",
+        "content": "first content",
+        "owner_id": test_user['id']
+    }, {
+        "title": "2nd title",
+        "content": "2nd content",
+        "owner_id": test_user['id']
+    },
+        {
+        "title": "3rd title",
+        "content": "3rd content",
+        "owner_id": test_user['id']
+    }, {
+        "title": "3rd title",
+        "content": "3rd content",
+        "owner_id": test_user['id']
+    }]
 
+    # iterator function to unpack posts_data
+    def create_post_model(post):
+        return models.Post(**post)
+
+    # Using map() to iterate each posts_data
+    # Converting map() results to list() for db data
+    posts = list(map(create_post_model, posts_data))
+
+    session.add_all(posts)
     session.commit()
-    posts = session.query(models.Post).all()
+    posts_results = session.query(models.Post).all()
 
-    return posts
+    return posts_results
