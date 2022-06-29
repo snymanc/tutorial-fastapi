@@ -34,3 +34,14 @@ def test_unauthorized_get_post(client, test_posts):
 def test_get_post_not_exist(authorized_client, test_posts):
     response = authorized_client.get("/posts/-1")
     assert response.status_code == 404
+
+
+def test_get_post_one_post(authorized_client, test_posts):
+    response = authorized_client.get(f"/posts/{test_posts[0].id}")
+
+    post = schemas.PostOut(**response.json())
+
+    assert response.status_code == 200
+    assert post.Post.id == test_posts[0].id
+    assert post.Post.content == test_posts[0].content
+    assert post.Post.owner_id == test_posts[0].owner_id
