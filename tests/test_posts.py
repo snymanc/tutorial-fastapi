@@ -19,3 +19,8 @@ def test_get_all_posts(authorized_client, test_posts):
     assert posts_list[1].Post.title == test_posts[1].title
     assert posts_list[2].Post.content == test_posts[2].content
     assert posts_list[3].Post.owner_id == test_posts[3].owner_id
+
+
+def test_unauthorized_user_get_all_posts(client, test_posts):
+    response = client.get("/posts/")
+    assert response.status_code == 401
