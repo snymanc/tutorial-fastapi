@@ -1,3 +1,7 @@
+# NO LONGER REQUIRED ALL MOVED TO test/conftest.py
+# LEAVINNG FILE FOR REFERENCE
+
+
 from fastapi.testclient import TestClient
 import pytest
 from sqlalchemy import create_engine
