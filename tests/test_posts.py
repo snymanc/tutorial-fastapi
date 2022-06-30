@@ -133,3 +133,15 @@ def test_update_post(authorized_client, test_user, test_posts):
     assert response.status_code == 200
     assert updated_post.title == data["title"]
     assert updated_post.content == data["content"]
+
+
+def test_update_other_user_post(authorized_client, test_user, test_user2, test_posts):
+    data = {
+        "title": "updated title",
+        "content": "updated content",
+        "id": test_posts[3].id
+    }
+
+    response = authorized_client.put(f"/posts/{test_posts[3].id}", json=data)
+
+    assert response.status_code == 403
