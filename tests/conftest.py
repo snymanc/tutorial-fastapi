@@ -61,6 +61,19 @@ def test_user(client):
 
     return new_user
 
+@pytest.fixture
+def test_user2(client):
+    user_data = {"email": "hi@email.com",
+                 "password": "password123"}
+    response = client.post("/users/", json=user_data)
+
+    assert response.status_code == 201
+
+    new_user = response.json()
+    new_user['password'] = user_data["password"]
+
+    return new_user
+
 
 @pytest.fixture
 def token(test_user):
@@ -78,7 +91,7 @@ def authorized_client(client, token):
 
 
 @pytest.fixture
-def test_posts(session, test_user):
+def test_posts(session, test_user, test_user2):
     # create post with map()
     posts_data = [{
         "title": "first title",
@@ -94,9 +107,9 @@ def test_posts(session, test_user):
         "content": "3rd content",
         "owner_id": test_user['id']
     }, {
-        "title": "3rd title",
-        "content": "3rd content",
-        "owner_id": test_user['id']
+        "title": "2nd user title",
+        "content": "2nd user content",
+        "owner_id": test_user2['id']
     }]
 
     # iterator function to unpack posts_data
