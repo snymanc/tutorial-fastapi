@@ -22,3 +22,10 @@ def test_vote_twice_post(authorized_client, test_posts, test_vote):
                                       json={"post_id": test_posts[3].id, "dir": 1})
 
     assert response.status_code == 409
+
+
+def test_delete_vote(authorized_client, test_posts, test_vote):
+    response = authorized_client.post("/vote/",
+                                      json={"post_id": test_posts[3].id, "dir": 0})
+
+    assert response.status_code == 201
