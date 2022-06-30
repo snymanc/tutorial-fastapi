@@ -1,3 +1,5 @@
+import pytest
+
 from app import schemas
 
 # args available via tests/conftest.py
@@ -45,3 +47,25 @@ def test_get_post_one_post(authorized_client, test_posts):
     assert post.Post.id == test_posts[0].id
     assert post.Post.content == test_posts[0].content
     assert post.Post.owner_id == test_posts[0].owner_id
+
+
+@pytest.mark.parametrize("title, content, published", [
+    ("create post", "test create post", True),
+    ("post creation", "creation of post", False),
+    ("post", "create", True)
+])
+def test_create_post(authorized_client, test_user, test_posts, title, content, published):
+    response = authorized_client.post("/posts/",
+                                      json={
+                                          "title": title,
+                                          "content": content,
+                                          "published": published
+                                      })
+
+    created_post = schemas.Post(**response.json())
+
+    assert response.status_code == 201
+    assert created_post.title == title
+    assert created_post.content == content
+    assert created_post.published == published
+    assert created_post.owner_id == test_user["id"]
