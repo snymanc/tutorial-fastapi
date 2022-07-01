@@ -4,15 +4,17 @@ on: [push, pull_request]
 
 jobs:
   job1:
+    environment:
+      name: testing
     env:
-      DATABASE_HOSTNAME: localhost
-      DATABASE_PORT: 5432
-      DATABASE_NAME: fastapi2
-      DATABASE_USERNAME: postgres
-      DATABASE_PASSWORD: GarthNeele
-      OAUTH2_SECRET_KEY: 5235d21776b207cd601b8a2f99fb1077aaa92cc1a5f94d7dda7ac1bbaf8ed62f
-      OAUTH2_ALGORITHM: HS256
-      OAUTH2_ACCESS_TOKEN_EXPIRE_MINUTES: 30
+      DATABASE_HOSTNAME: ${{secrets.DATABASE_HOSTNAME}}
+      DATABASE_PORT: ${{secrets.DATABASE_PORT}}
+      DATABASE_NAME: ${{secrets.DATABASE_NAME}}
+      DATABASE_USERNAME: ${{secrets.DATABASE_USERNAME}}
+      DATABASE_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
+      OAUTH2_SECRET_KEY: ${{secrets.OAUTH2_SECRET_KEY}}
+      OAUTH2_ALGORITHM: ${{secrets.OAUTH2_ALGORITHM}}
+      OAUTH2_ACCESS_TOKEN_EXPIRE_MINUTES: ${{secrets.OAUTH2_ACCESS_TOKEN_EXPIRE_MINUTES}}
     runs-on: ubuntu-latest
     steps:
       - name: pulling git repo
